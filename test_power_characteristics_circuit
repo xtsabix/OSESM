@@ -1,0 +1,4 @@
+from characteristics_circuit import impedance_serial, impedance_prallel, check_cos_phi, characteristics_serial_voltage, characteristics_serial_current
+
+def test_import impedance_serial():
+    assert import impedance_serial(1,2,1) == 2/(2*Pi)
