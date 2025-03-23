@@ -12,3 +12,9 @@ This project is released under a MIT License.
 This project includes exercises and homeworks from the lecture 
 Open-Source Energy System Modeling by Daniel Hubmann. 
 
+In this project you can calculate Resistance / Capacitor - Circuits. 
+
+You can calculate serial / parallel impedance of R and C. 
+Further you can calculate the power S, Q, P with a given voltage U. 
+
+
