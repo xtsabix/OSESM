@@ -8,6 +8,6 @@ jobs:
     - uses: astral-sh/ruff-action@v3
       with:
         #args: 'format --check'
-        args: 'format --fix'  # automatisches Anpassen
+        args: 'format -- --fix'  # automatisches Anpassen
 
 
