@@ -2,38 +2,40 @@ import cmath
 import math
 
 # Funktion zur Berechnung der Impedanz in einer Serienschaltung
-def berechne_impedanz_serien(R1, C, f):
+def berechne_impedanz_serien(r1, c, f):
     omega = 2 * math.pi * f
-    Z_R = R1  # Impedanz des Widerstands (reell)
-    Z_C = complex(0, -1 / (omega * C))  # Impedanz des Kondensators (imaginär)
-    Z_gesamt = Z_R + Z_C  # Gesamtimpedanz in Serie
-    return Z_gesamt
+    z_r = r1  # Impedanz des Widerstands (reell)
+    z_c = complex(0, -1 / (omega * c))  # Impedanz des Kondensators (imaginär)
+    z_gesamt = z_r + z_c  # Gesamtimpedanz in Serie
+    return z_gesamt
+
 
 # Funktion zur Berechnung der Impedanz in einer Parallelschaltung
-def berechne_impedanz_parallel(R2, C, f):
+def berechne_impedanz_parallel(r2, c, f):
     omega = 2 * math.pi * f
-    Z_R = R2  # Impedanz des Widerstands (reell)
-    Z_C = complex(0, -1 / (omega * C))  # Impedanz des Kondensators (imaginär)
+    z_r = r2  # Impedanz des Widerstands (reell)
+    z_c = complex(0, -1 / (omega * c))  # Impedanz des Kondensators (imaginär)
     # Gesamtimpedanz in Parallel
-    Z_gesamt = 1 / (1 / Z_R + 1 / Z_C)
-    return Z_gesamt
+    z_gesamt = 1 / (1 / z_r + 1 / z_c)
+    return z_gesamt
+
 
 # Funktion zur Berechnung von Scheinleistung, Wirkleistung und Blindleistung
-def berechne_leistungen(U, Z_gesamt):
-    Z_betrag = abs(Z_gesamt)  # Betrag der Impedanz
-    Z_phase = cmath.phase(Z_gesamt)  # Phasenwinkel der Impedanz
-    
-    I = U / Z_betrag  # Strom (I = U / Z)
-    
-    # Scheinleistung (S = U * I)
-    S = U * I
-    
-    # Wirkleistung (P = U * I * cos(phi))
-    P = U * I * math.cos(Z_phase)
-    
-    # Blindleistung (Q = U * I * sin(phi))
-    Q = U * I * math.sin(Z_phase)
+def berechne_leistungen(u, z_gesamt):
+    z_betrag = abs(z_gesamt)  # Betrag der Impedanz
+    z_phase = cmath.phase(z_gesamt)  # Phasenwinkel der Impedanz
 
-    print(f"Scheinleistung: {S:.3f} VA; P={P:.3f} W; Q={Q:.3f} VAr")
+    i = u / z_betrag  # Strom (i = u / z)
 
-    return abs(S), abs(P), abs(Q)
+    # Scheinleistung (S = u * i)
+    s = u * i
+
+    # Wirkleistung (P = u * i * cos(phi))
+    p = u * i * math.cos(z_phase)
+
+    # Blindleistung (Q = u * i * sin(phi))
+    q = u * i * math.sin(z_phase)
+
+    print(f"Scheinleistung: {s:.3f} VA; P={p:.3f} W; Q={q:.3f} VAr")
+
+    return abs(s), abs(p), abs(q)
