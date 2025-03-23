@@ -9,11 +9,10 @@ jobs:
       with:
         #args: 'format --check'
         args: 'format -- --fix'  # automatisches Anpassen
-        src: './OSESM'
+        src: '../OSESM'
         github-token: ${{ secrets.GITHUB_TOKEN }}
   
-    - name: List files in OSESM directory
-      run: ls -R ./OSESM
+
 
 
 
