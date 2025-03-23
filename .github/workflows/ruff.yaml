@@ -5,8 +5,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: astral-sh/ruff-action@v3
+
+      # Schritt für automatische Formatierung
+    - name: Automatische Formatierung mit Ruff
+      uses: astral-sh/ruff-action@v3
       with:
         args: 'format --fix'  # automatisches Anpassen
-        args: 'format --check' # nur Kontrolle
+
+    # Schritt zur Überprüfung der Formatierung (nur Kontrolle)
+    - name: Überprüfung der Formatierung mit Ruff
+      uses: astral-sh/ruff-action@v3
+      with:
+        args: 'format --check'  # nur Kontrolle
 
