@@ -1,33 +1,39 @@
-#import numpy
+import cmath
 import math
 
-print(f"TEST-Ausgabe")
+# Funktion zur Berechnung der Impedanz in einer Serienschaltung
+def berechne_impedanz_serien(R1, C, f):
+    omega = 2 * math.pi * f
+    Z_R = R1  # Impedanz des Widerstands (reell)
+    Z_C = complex(0, -1 / (omega * C))  # Impedanz des Kondensators (imaginär)
+    Z_gesamt = Z_R + Z_C  # Gesamtimpedanz in Serie
+    return Z_gesamt
 
-def impedance_serial(r1, r2, C, f):  #r1, r2 .. Resistance, C ... Capacity, f ... frequency
-    return r1+r2+1/(math.j*2*math.pi*f*C);
+# Funktion zur Berechnung der Impedanz in einer Parallelschaltung
+def berechne_impedanz_parallel(R2, C, f):
+    omega = 2 * math.pi * f
+    Z_R = R2  # Impedanz des Widerstands (reell)
+    Z_C = complex(0, -1 / (omega * C))  # Impedanz des Kondensators (imaginär)
+    # Gesamtimpedanz in Parallel
+    Z_gesamt = 1 / (1 / Z_R + 1 / Z_C)
+    return Z_gesamt
 
-def impedance_prallel(r1, r2, C, f):
-    return 1/((1/r1)+(1/r2)+(math.j*2*math.pi*f*C));
+# Funktion zur Berechnung von Scheinleistung, Wirkleistung und Blindleistung
+def berechne_leistungen(U, Z_gesamt):
+    Z_betrag = abs(Z_gesamt)  # Betrag der Impedanz
+    Z_phase = cmath.phase(Z_gesamt)  # Phasenwinkel der Impedanz
+    
+    I = U / Z_betrag  # Strom (I = U / Z)
+    
+    # Scheinleistung (S = U * I)
+    S = U * I
+    
+    # Wirkleistung (P = U * I * cos(phi))
+    P = U * I * math.cos(Z_phase)
+    
+    # Blindleistung (Q = U * I * sin(phi))
+    Q = U * I * math.sin(Z_phase)
 
-def check_cos_phi(cos_phi):    
-    if 0 < cos_phi < 1:
-        print(f"cos(phi) = {cos_phi:.3f} ist im gültigen Bereich.")
-        return True
-    else:
-        print(f"Fehler: cos(phi) = {cos_phi:.3f} liegt außerhalb des Bereichs (0,1).")
-        return False
+    print(f"Scheinleistung: {S:.3f} VA; P={P:.3f} W; Q={Q:.3f} VAr")
 
-def characteristics_serial_voltage(r1,r2,C,f, u, cos_phi): # u ... Voltage_rms, 0<cos_phi<=1, 
-  if check_cos_phi(cos_phi):
-      s=u**2/impedance_serial(r1, r2, C, f) # S=U*I , I=U/R ==> S=U^2/R
-      p=s*cos_phi;
-      q=math.sqrt(s**2-p**2)
-      return f"Scheinleistung: = {s:.3f}VA; (Zusatzinfo:P={p:.3f}W; Q={p:.3f}VAr) "
-  
-
-def characteristics_serial_current(r1,r2,C,f, i, cos_phi): # i ... Voltage_rms, 0<cos_phi<=1, 
-  if check_cos_phi(cos_phi):
-      s=i**2*impedance_prallel(r1, r2, C, f) # S=U*I , I=U/R ==> S=U^2/R
-      p=s*cos_phi;
-      q=math.sqrt(s**2-p**2)
-      return f"Scheinleistung: = {s:.3f}VA; (Zusatzinfo:P={p:.3f}W; Q={p:.3f}VAr) "
+    return abs(S), abs(P), abs(Q)
