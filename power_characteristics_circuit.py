@@ -1,6 +1,7 @@
 import cmath
 import math
 
+
 # Funktion zur Berechnung der Impedanz in einer Serienschaltung
 def berechne_impedanz_serien(r1, c, f):
     omega = 2 * math.pi * f
