@@ -1,6 +1,7 @@
 import unittest
-import cmath
-import math
+
+# import cmath
+# import math
 from power_characteristics_circuit import (
     berechne_impedanz_serien,
     berechne_impedanz_parallel,
@@ -59,4 +60,33 @@ class TestPowerCharacteristicsCircuit(unittest.TestCase):
         u = 1  # Spannung in Volt (RMS)
         r1 = 1  # Widerstand in Serie (Ohm)
         c = 1  # Kapazität (Farad)
-        f = 1  # Fre
+        f = 1  # Frequenz (Hz)
+
+        z_serien = berechne_impedanz_serien(r1, c, f)
+
+        # Berechne die Leistungen
+        s, p, q = berechne_leistungen(u, z_serien)
+
+        # Test: Überprüfe die Scheinleistung, Wirkleistung und Blindleistung
+        self.assertGreater(s, 0, msg="Scheinleistung sollte positiv sein.")
+        self.assertGreater(p, 0, msg="Wirkleistung sollte positiv sein.")
+        self.assertGreater(q, 0, msg="Blindleistung sollte positiv sein.")
+
+        # Teste auch mit einer anderen Spannung
+        u = 10  # Spannung in Volt (RMS)
+        s, p, q = berechne_leistungen(u, z_serien)
+
+        self.assertGreater(
+            s, 0, msg="Scheinleistung für andere Spannung sollte positiv sein."
+        )
+        self.assertGreater(
+            p, 0, msg="Wirkleistung für andere Spannung sollte positiv sein."
+        )
+        self.assertGreater(
+            q, 0, msg="Blindleistung für andere Spannung sollte positiv sein."
+        )
+
+
+# Wenn die Datei direkt ausgeführt wird, werden die Tests ausgeführt
+if __name__ == "__main__":
+    unittest.main()
