@@ -9,7 +9,7 @@ jobs:
       with:
         #args: 'format --check'
         args: 'format -- --fix'  # automatisches Anpassen
-        src: './'
+        src: './OSESM'
         github-token: ${{ secrets.GITHUB_TOKEN }}
 
 
