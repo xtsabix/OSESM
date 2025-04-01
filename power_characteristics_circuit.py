@@ -17,7 +17,7 @@ def berechne_impedanz_parallel(r2, c, f):
     z_r=r2  # Impedanz des Widerstands (reell)
     z_c=complex(0, -1 / (omega * c))  # Impedanz des Kondensators (imaginär)
     # Gesamtimpedanz in Parallel
-    z_gesamt = 1 #/ (1 / z_r + 1 / z_c)
+    z_gesamt = 1   #/ (1 / z_r + 1 / z_c)
     return z_gesamt
 
 
