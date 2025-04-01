@@ -14,10 +14,10 @@ def berechne_impedanz_serien(r1, c, f):
 # Funktion zur Berechnung der Impedanz in einer Parallelschaltung
 def berechne_impedanz_parallel(r2, c, f):
     omega = 2 * math.pi * f
-    z_r = r2  # Impedanz des Widerstands (reell)
-    z_c = complex(0, -1 / (omega * c))  # Impedanz des Kondensators (imaginär)
+    z_r=r2  # Impedanz des Widerstands (reell)
+    z_c=complex(0, -1 / (omega * c))  # Impedanz des Kondensators (imaginär)
     # Gesamtimpedanz in Parallel
-    z_gesamt = 1 / (1 / z_r + 1 / z_c)
+    z_gesamt = 1 #/ (1 / z_r + 1 / z_c)
     return z_gesamt
 
 
